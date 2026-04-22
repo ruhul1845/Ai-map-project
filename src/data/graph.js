@@ -50,7 +50,7 @@ export const backendIncidentRules = {
   nodeZones: {
     Gulistan: {
       types: ["murder risk", "traffic risk"],
-      penalty: 6,
+      penalty: 12,
       affectsNodes: ["Gulistan"],
       affectsEdges: ["gulistan-badrunnesa", "gulistan-medical", "lalbagh-gulistan", "ramna-gulistan"]
     },
@@ -62,13 +62,13 @@ export const backendIncidentRules = {
     },
     TSC: {
       types: ["murder risk"],
-      penalty: 8,
+      penalty: 6,
       affectsNodes: ["TSC"],
       affectsEdges: ["suhrawardy-tsc", "metro-tsc", "du-tsc", "vc-tsc", "tsc-medical"]
     },
     Shahbag: {
       types: ["murder risk"],
-      penalty: 10,
+      penalty: 5,
       affectsNodes: ["Shahbag Metro Station", "Shahbag Intersection"],
       affectsEdges: ["shishu-metro", "metro-intersection", "metro-tsc", "intersection-medical", "metro-nilkhet", "intersection-vc"]
     },
