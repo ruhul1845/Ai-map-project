@@ -117,6 +117,8 @@ function App() {
           graph={selectedScenario ? selectedScenario.graph : graph}
         />
       </div>
+      <button onClick={() => setShowAnalytics((prev) => !prev)} style={styles.analyticsButton}>{showAnalytics ? "Hide analytics" : "Show analytics for selected scenario"}</button>
+
 
       {scenarioRuns.length > 0 && (
         <div style={styles.resultsSection}>
@@ -127,6 +129,7 @@ function App() {
                 <h3 style={{ margin: 0 }}>{scenario.label}</h3>
                 <span style={styles.scenarioTag}>{scenario.results.filter((item) => item.pathFound).length}/5 path results</span>
               </div>
+
               <div style={styles.resultsGrid}>
                 {scenario.results.map((result, index) => (
                   <div key={`${scenario.key}-${result.algorithm}`} style={styles.resultCard}>
@@ -138,9 +141,12 @@ function App() {
                     <Metric label="Weighted cost" value={result.pathFound ? result.cost.toFixed(2) : "No path"} />
                     <Metric label="Distance" value={`${result.routeData.totalDistance.toFixed(2)} km`} />
                     <Metric label="Risk-adjusted score" value={result.routeData.totalRisk.toFixed(2)} />
-                    <Metric label="Expanded nodes" value={result.nodesExpanded} />
-                    <Metric label="Generated neighbors" value={result.nodesExplored} />
-                    <Metric label="Runtime" value={`${result.time.toFixed(2)} ms`} />
+                    <Metric
+                      label="Total Explored nodes"
+                      value={result.pathFound ? result.path.length : 0}
+                    />
+
+
                     <Metric label="Route" value={result.pathFound ? result.path.join(" → ") : "Not applicable"} stacked />
                     <Metric label="Expansion order" value={result.exploredOrder.length ? result.exploredOrder.join(" → ") : "No expansions"} stacked />
                     <div style={styles.roadBlock}><strong>Roads used</strong><div>{result.routeData.details.length ? result.routeData.details.map((d) => d.roadName).join(" • ") : "No route"}</div></div>
@@ -149,10 +155,10 @@ function App() {
                 ))}
               </div>
               {showAnalytics && selectedScenarioKey === scenario.key && <ChartView data={scenario.results} />}
+
             </div>
           ))}
 
-          <button onClick={() => setShowAnalytics((prev) => !prev)} style={styles.analyticsButton}>{showAnalytics ? "Hide analytics" : "Show analytics for selected scenario"}</button>
         </div>
       )}
     </div>

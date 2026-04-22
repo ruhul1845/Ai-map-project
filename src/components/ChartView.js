@@ -5,7 +5,7 @@ export default function ChartView({ data = [] }) {
   const chartData = data.map((item) => ({
     algorithm: item.algorithm,
     cost: item.pathFound ? Number(item.cost.toFixed(2)) : 0,
-    explored: item.nodesExpanded,
+    explored: item.pathFound ? item.path.length : 0,
     time: Number(item.time.toFixed(2)),
     risk: Number(item.routeData.totalRisk.toFixed(2))
   }));
@@ -22,7 +22,7 @@ export default function ChartView({ data = [] }) {
             <Tooltip />
             <Legend />
             <Bar dataKey="cost" name="Weighted cost" />
-            <Bar dataKey="explored" name="Nodes expanded" />
+            <Bar dataKey="explored" name="Nodes explored" />
             <Bar dataKey="risk" name="Adjusted risk" />
           </BarChart>
         </ResponsiveContainer>
